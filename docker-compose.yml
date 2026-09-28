@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: artstock_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: artstock_db
+      POSTGRES_USER: artstock
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U artstock -d artstock_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: artstock_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://artstock:${POSTGRES_PASSWORD}@db:5432/artstock_db
+      JWT_SECRET: ${JWT_SECRET}
+      PORT: 4000
+    # Pas de port publié sur l'hôte : Nginx Proxy Manager atteint ce conteneur
+    # directement par son nom sur proxy_network (cf. DEPLOIEMENT.md).
+    networks:
+      - default
+      - proxy_network
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    container_name: artstock_frontend
+    restart: unless-stopped
+    networks:
+      - proxy_network
+    depends_on:
+      - backend
+
+networks:
+  proxy_network:
+    external: true
+
+volumes:
+  pgdata:

@@ -1,0 +1,56 @@
+stages:
+  - build
+  - deploy
+
+build-frontend:
+  stage: build
+  image: node:22
+  script:
+    - cd frontend
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - frontend/build
+    expire_in: 1 week
+
+check-backend:
+  stage: build
+  image: node:22
+  variables:
+    # Factice : uniquement pour que `prisma validate` puisse résoudre env("DATABASE_URL"),
+    # aucune connexion réelle à une base n'est faite par cette commande.
+    DATABASE_URL: "postgresql://ci:ci@localhost:5432/ci"
+  script:
+    - cd backend
+    - npm ci
+    - npx prisma validate
+    - node --check src/server.js
+    - node --check src/app.js
+
+# Déploiement sur le VPS (artstock.be) via SSH.
+# Frontend et backend sont tous deux containerisés (voir docker-compose.yml), connectés
+# au réseau proxy_network sans port publié ; Nginx Proxy Manager (déjà installé sur le
+# VPS) est le seul point d'entrée public, configuré via son interface web (voir
+# DEPLOIEMENT.md).
+#
+# Variables CI/CD à définir dans GitLab (Settings > CI/CD > Variables) :
+#   SSH_PRIVATE_KEY  (clé privée autorisée sur le VPS, type File ou Variable)
+#   VPS_HOST         51.210.8.227
+#   VPS_USER         (ex: debian ou root selon ton install)
+#   VPS_APP_DIR      /srv/artstock
+deploy:
+  stage: deploy
+  image: alpine:latest
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  before_script:
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts
+  script:
+    - ssh "$VPS_USER@$VPS_HOST" "cd $VPS_APP_DIR && git pull origin main && docker compose up -d --build"
+  environment:
+    name: production

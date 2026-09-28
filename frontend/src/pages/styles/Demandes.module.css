@@ -1,0 +1,202 @@
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.tabs button {
+    padding: 10px 18px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.tabs button:hover:not(:disabled) {
+    color: var(--color-accent);
+}
+
+.tabs button.active {
+    background-color: transparent;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    cursor: default;
+    font-weight: 700;
+}
+
+.tabs button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.contenu {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.listeDemandes {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.demandeCard {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    background-color: var(--color-surface-muted);
+    margin-bottom: 14px;
+}
+
+.demandeCard h4 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+}
+
+.demandeCard select {
+    margin-top: 6px;
+}
+
+.demandeCard ul {
+    margin: 10px 0 0;
+    padding-left: 18px;
+}
+
+.formulaire {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 24px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    row-gap: 16px;
+    column-gap: 20px;
+}
+
+.formulaire h4 {
+    grid-column: span 2;
+    margin-top: 20px;
+    font-size: 1.05rem;
+    color: var(--color-text);
+    border-left: 3px solid var(--color-accent);
+    padding-left: 10px;
+}
+
+.formulaire input,
+.formulaire select,
+.formulaire textarea {
+    width: 100%;
+}
+
+.formulaire > div {
+    grid-column: span 2;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.formulaire > div select,
+.formulaire > div input {
+    flex: 1;
+}
+
+.formulaire > div > button {
+    background-color: var(--color-danger);
+    color: white;
+    flex-shrink: 0;
+}
+
+.formulaire > div > button:hover {
+    background-color: #8f2718;
+}
+
+.formulaire button[type="button"]:not(:last-of-type) {
+    grid-column: span 2;
+    margin-top: 8px;
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.formulaire button[type="button"]:not(:last-of-type):hover {
+    background-color: var(--color-accent-hover);
+}
+
+.formulaire button[type="submit"] {
+    grid-column: span 2;
+    margin-top: 12px;
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.7rem 1.2rem;
+}
+
+.formulaire button[type="submit"]:hover {
+    background-color: var(--color-accent-hover);
+}
+
+@media (max-width: 768px) {
+    .tabs {
+        gap: 0;
+    }
+
+    .tabs button {
+        flex: 1 1 0;
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+
+    .contenu,
+    .listeDemandes {
+        padding: 16px;
+    }
+
+    .demandeCard {
+        padding: 12px;
+    }
+
+    .formulaire {
+        max-width: 100%;
+        padding: 18px;
+        grid-template-columns: 1fr;
+    }
+
+    .formulaire h4 {
+        grid-column: 1;
+        margin-top: 14px;
+    }
+
+    .formulaire > div {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .formulaire > div select,
+    .formulaire > div input,
+    .formulaire > div > button {
+        width: 100%;
+    }
+
+    .formulaire button[type="button"]:not(:last-of-type),
+    .formulaire button[type="submit"] {
+        grid-column: 1;
+        margin-top: 14px;
+    }
+}

@@ -1,0 +1,115 @@
+.container {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+}
+
+.titleIcon {
+    color: var(--color-accent);
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-muted);
+    transition: background-color var(--transition-fast);
+}
+
+.notification:hover {
+    background-color: var(--color-accent-soft);
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-right: 12px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-border);
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+}
+
+.date {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2px;
+    text-transform: capitalize;
+}
+
+.message {
+    font-size: 0.92rem;
+    color: var(--color-text);
+}
+
+/* Couleurs par type de notification : pastille d'icône plutôt que liseré */
+.commande .icon {
+    background-color: #e3eafc;
+    color: #3358d4;
+}
+
+.demande .icon {
+    background-color: var(--color-success-soft);
+    color: var(--color-success);
+}
+
+.preparation .icon {
+    background-color: var(--color-warning-soft);
+    color: var(--color-warning);
+}
+
+.alerte .icon {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+
+    .title {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+
+    .notification {
+        padding: 10px 12px;
+    }
+
+    .date {
+        font-size: 0.78rem;
+    }
+
+    .message {
+        font-size: 0.88rem;
+    }
+}

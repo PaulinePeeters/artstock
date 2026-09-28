@@ -1,0 +1,176 @@
+/* styles/ListeCommandes.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.title {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.selectAnnee {
+    width: auto;
+    min-width: 160px;
+}
+
+.empty {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    padding: 24px 0;
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+th, td {
+    padding: 0.8rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+th {
+    background-color: var(--color-surface-muted);
+}
+
+.recue {
+    color: var(--color-success);
+    font-weight: 600;
+}
+
+.attente {
+    color: var(--color-warning);
+    font-weight: 600;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btnDetails {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.btnDetails:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.btnReception {
+    background-color: var(--color-success);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.btnReception:hover {
+    background-color: #145c39;
+}
+
+.receptionne {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-success);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.btnSuivi {
+    background-color: var(--color-surface-muted);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.btnSuivi:hover {
+    background-color: var(--color-border);
+}
+
+.btnDelete {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger-soft);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.btnDelete:hover {
+    background-color: var(--color-danger);
+    color: white;
+}
+
+/* Cacher les cartes en desktop */
+.cardCommande {
+    display: none;
+}
+
+/* Affichage en mode carte sur tablette et mobile */
+@media (max-width: 1024px) {
+    .table {
+        display: none;
+    }
+
+    .cardCommande {
+        display: block;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: 14px 16px;
+        margin-bottom: 12px;
+    }
+
+    .cardCommande h3 {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .cardCommande p {
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+
+    .actions {
+        margin-top: 0.5rem;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .btnDetails,
+    .btnReception,
+    .btnSuivi,
+    .btnDelete {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}

@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique @db.VarChar(255)
+  passwordHash String   @map("password_hash")
+  nom          String?  @db.VarChar(255)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("app_user")
+}
+
+model Materiel {
+  id                 Int                   @id @default(autoincrement())
+  nom                String
+  quantiteEnStock    Int                   @default(0) @map("quantiteEnStock")
+  seuilAlerte        Int                   @default(0)
+  uniteId            Int                   @map("unite_id")
+  type               String?
+  derniereCommande   Commande?             @relation("DerniereCommandeMateriel", fields: [derniereCommandeId], references: [id])
+  derniereCommandeId Int?
+  quantiteUnites     Int?                  @default(0) @map("quantiteunites")
+  quantiteParUnite   Int?                  @map("quantiteparunite")
+  historiqueStock    HistoriqueStock[]
+  lignesCommandes    LigneCommande[]
+  lignesDemandes     LigneDemande[]
+  fournisseurs       MaterielFournisseur[]
+  unite              Unite                 @relation(fields: [uniteId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Materiel_uniteid_fkey")
+}
+
+model MaterielFournisseur {
+  id            Int         @id @default(autoincrement())
+  materielId    Int         @map("materiel_id")
+  fournisseurId Int         @map("fournisseur_id")
+  codeArticle   String?     @map("code_article") @db.VarChar(255)
+  materiel      Materiel    @relation(fields: [materielId], references: [id], onDelete: Cascade)
+  fournisseur   Fournisseur @relation(fields: [fournisseurId], references: [id], onDelete: Cascade)
+
+  @@unique([materielId, fournisseurId])
+  @@map("materiel_fournisseur")
+}
+
+model Unite {
+  id           Int        @id(map: "Unite_pkey") @default(autoincrement())
+  nom          String
+  multipliable Boolean?   @default(false)
+  materiels    Materiel[]
+
+  @@map("unite")
+}
+
+model HistoriqueStock {
+  id            Int          @id @default(autoincrement())
+  materielId    Int?
+  type          String
+  quantite      Int
+  commentaire   String?
+  date          DateTime     @default(now())
+  prixUnitaire  Float?
+  fournisseurId Int?         @map("fournisseur_id")
+  fournisseur   Fournisseur? @relation(fields: [fournisseurId], references: [id])
+  materiel      Materiel?    @relation(fields: [materielId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "HistoriqueStock_materielid_fkey")
+
+  @@map("HistoriqueStock")
+}
+
+model Demande {
+  id              Int            @id @default(autoincrement())
+  nomProf         String
+  classe          String
+  dateUtilisation DateTime
+  commentaire     String?
+  statut          String         @default("en_attente")
+  dateDebut       DateTime?      @db.Date
+  dateFin         DateTime?      @db.Date
+  dateDemande     DateTime       @default(now())
+  lignes          LigneDemande[]
+}
+
+model LigneDemande {
+  id         Int      @id @default(autoincrement())
+  demandeId  Int
+  materielId Int
+  quantite   Int
+  demande    Demande  @relation(fields: [demandeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "LigneDemande_demandeid_fkey")
+  materiel   Materiel @relation(fields: [materielId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "LigneDemande_materielid_fkey")
+}
+
+model Commande {
+  id                        Int             @id @default(autoincrement())
+  dateCommande              DateTime        @db.Timestamp(6)
+  dateReception             DateTime?       @db.Timestamp(6)
+  statut                    String          @default("en_attente") @db.VarChar(50)
+  fournisseurId             Int?            @map("fournisseur_id")
+  fournisseur               Fournisseur?    @relation(fields: [fournisseurId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Commande_fournisseurid_fkey")
+  lignesCommande            LigneCommande[]
+  materielsDerniereCommande Materiel[]      @relation("DerniereCommandeMateriel")
+}
+
+model Fournisseur {
+  id               Int               @id(map: "Fournisseur_pkey") @default(autoincrement())
+  nom              String            @db.VarChar(255)
+  email            String?           @db.VarChar(255)
+  telephone        String?           @db.VarChar(50)
+  adresse          String?
+  contact          String?           @db.VarChar(255)
+  conditions       String?
+  delaiLivraison   Int?              @map("delai_livraison")
+  createdAt        DateTime?         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime?         @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  commandes        Commande[]
+  historiqueStocks HistoriqueStock[]
+  materiels        MaterielFournisseur[]
+
+  @@map("fournisseur")
+}
+
+model LigneCommande {
+  id           Int      @id @default(autoincrement())
+  commandeId   Int
+  materielId   Int
+  quantite     Int
+  prixUnitaire Float
+  commande     Commande @relation(fields: [commandeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "LigneCommande_commandeid_fkey")
+  materiel     Materiel @relation(fields: [materielId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "LigneCommande_materielid_fkey")
+}

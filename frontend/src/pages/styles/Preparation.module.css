@@ -1,0 +1,188 @@
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.toolbarBtn {
+    background-color: var(--color-surface-muted);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    padding: 0.45rem 0.9rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.toolbarBtn:hover {
+    background-color: var(--color-border);
+}
+
+.dateTitle {
+    font-weight: 600;
+    font-size: 1rem;
+    flex-grow: 1;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: capitalize;
+}
+
+.viewToggle {
+    position: relative;
+}
+
+.toggleBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.45rem 0.9rem;
+}
+
+.toggleBtn:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+    min-width: 130px;
+    padding: 4px;
+    margin: 0;
+    list-style: none;
+}
+
+.dropdownMenu li button {
+    background: none;
+    border: none;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--color-text);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+}
+
+.dropdownMenu li button:hover {
+    background-color: var(--color-surface-muted);
+}
+
+.dropdownMenu li button.activeView {
+    font-weight: 700;
+    color: var(--color-accent);
+    background-color: var(--color-accent-soft);
+}
+
+.calendarWrapper {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Aligne les couleurs par défaut de react-big-calendar sur la palette de l'app */
+.calendarWrapper :global(.rbc-today) {
+    background-color: var(--color-accent-soft);
+}
+
+.calendarWrapper :global(.rbc-event) {
+    background-color: var(--color-accent);
+    border-radius: 4px;
+}
+
+.calendarWrapper :global(.rbc-event:focus),
+.calendarWrapper :global(.rbc-event.rbc-selected) {
+    background-color: var(--color-accent-hover);
+}
+
+.calendarWrapper :global(.rbc-off-range-bg) {
+    background-color: var(--color-surface-muted);
+}
+
+.calendarWrapper :global(.rbc-toolbar button.rbc-active) {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.calendarWrapper :global(.rbc-show-more) {
+    color: var(--color-accent);
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(16, 25, 43, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.modalContent {
+    background: var(--color-surface);
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    max-height: 80vh;
+    overflow-y: auto;
+    width: 320px;
+    max-width: 100%;
+    box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 768px) {
+    .toolbar {
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+    .toolbarBtn, .toggleBtn {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.8rem;
+    }
+    .dateTitle {
+        font-size: 0.95rem;
+        white-space: normal;
+        flex-grow: 0;
+        text-align: left;
+        flex-basis: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .dropdownMenu {
+        min-width: 110px;
+    }
+    .modalContent {
+        width: 90vw;
+        max-height: 70vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .toolbarBtn, .toggleBtn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.5rem 0;
+    }
+    .dateTitle {
+        text-align: center;
+        margin-bottom: 0.75rem;
+    }
+    .modalContent {
+        width: 95vw;
+        max-height: 60vh;
+    }
+}

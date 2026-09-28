@@ -1,0 +1,119 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 520px;
+}
+
+.form label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.35rem;
+    display: block;
+    color: var(--color-text-muted);
+}
+
+.form input,
+.form select {
+    width: 100%;
+}
+
+.form button {
+    align-self: flex-start;
+    padding: 0.6rem 1.4rem;
+}
+
+.uniteWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.uniteSelect {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.addBtn {
+    flex-shrink: 0;
+    width: auto;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    margin-top: 0.5rem;
+    background-color: var(--color-surface-muted);
+    border: 1px solid var(--color-border);
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Fournisseurs liés au matériel */
+.fournisseursSection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.fournisseurLigne {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fournisseurLigne select {
+    flex: 1;
+}
+
+.fournisseurLigne input {
+    flex: 1.4;
+}
+
+.fournisseurLigne button {
+    flex-shrink: 0;
+    background: none;
+    color: var(--color-text-muted);
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fournisseurLigne button:hover {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+@media (max-width: 768px) {
+    .form {
+        max-width: 100%;
+    }
+
+    .uniteSelect {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .addBtn {
+        width: 100%;
+    }
+
+    .card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .fournisseurLigne {
+        flex-wrap: wrap;
+    }
+
+    .form button {
+        width: 100%;
+    }
+}

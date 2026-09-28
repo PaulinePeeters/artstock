@@ -1,0 +1,95 @@
+/* HistoriqueStock.module.css */
+
+.tableWrapper {
+    width: 100%;
+}
+
+.exportBtn {
+    margin-bottom: 12px;
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.exportBtn:hover {
+    background-color: var(--color-accent-hover);
+}
+
+/* Vue tableau sur grand écran */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: var(--color-surface-muted);
+}
+
+.table th,
+.table td {
+    padding: 0.7rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    user-select: none;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table tbody tr:hover td {
+    background-color: var(--color-surface-muted);
+}
+
+.table th:first-child,
+.table td:first-child {
+    min-width: 120px;
+}
+
+/* Cacher les cartes sur grand écran */
+.cardContainer {
+    display: none;
+}
+
+/* Responsive : passer à des cartes sur tablette et mobile */
+@media (max-width: 1024px) {
+    .table {
+        display: none;
+    }
+
+    .cardContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 8px;
+    }
+
+    .card {
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-left: 3px solid var(--color-accent);
+        border-radius: var(--radius-md);
+        padding: 14px 16px;
+    }
+
+    .card p {
+        margin: 4px 0;
+        font-size: 0.85rem;
+        color: var(--color-text);
+    }
+
+    .card p strong {
+        color: var(--color-text-muted);
+        font-weight: 600;
+    }
+
+    .exportBtn {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.9rem;
+    }
+}

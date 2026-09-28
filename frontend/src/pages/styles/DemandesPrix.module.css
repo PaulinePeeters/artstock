@@ -1,0 +1,112 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 24px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.fournisseurLabel {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.fournisseurLabel .select {
+    margin-top: 6px;
+    width: 100%;
+}
+
+.ligne {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.ligne select,
+.ligne input[type="number"] {
+    flex: 1 1 200px;
+}
+
+.refFournisseur {
+    flex: 1 1 160px;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.btnSupprimer {
+    background-color: var(--color-surface-muted);
+    color: var(--color-danger);
+    border: 1px solid var(--color-border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnSupprimer:hover {
+    background-color: var(--color-danger-soft);
+}
+
+.btnAjouter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.btnAjouter:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.btnExporter {
+    background-color: var(--color-surface-muted);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+}
+
+.btnExporter:hover {
+    background-color: var(--color-border);
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 18px;
+    }
+
+    .ligne {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .ligne select,
+    .ligne input[type="number"] {
+        flex: 1 1 100%;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .actions button {
+        width: 100%;
+        justify-content: center;
+    }
+}
